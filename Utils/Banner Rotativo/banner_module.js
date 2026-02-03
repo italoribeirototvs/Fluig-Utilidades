@@ -2,6 +2,7 @@
  * BannerRotator - Módulo Modular para Renderização de Banners Fluig
  * @namespace BannerRotator
  * @description Gerencia a busca de dados, filtragem por validade e renderização do carrossel.
+ * @Autor Italo Ribeiro
  */
 var BannerRotator = (function() {
 
