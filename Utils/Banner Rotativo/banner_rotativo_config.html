@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- Dependências do Fluig Style Guide -->
+    <link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css"/>
+    <script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+    <script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="app.js" charset="utf-8"></script>
+
+
+    <style>
+        .slot-header { background: #f8f8f8; font-weight: bold; }
+        .table-slots input { height: 34px; }
+        .slot-num { vertical-align: middle !important; text-align: center; background: #fdffdf; font-weight: bold; }
+        .checkbox-center { display: flex; justify-content: center; align-items: center; height: 34px; }
+        .btn-upload-custom { margin-top: 5px; }
+        .preview-link { cursor: pointer; color: #2c3e50; text-decoration: underline; font-size: 11px; display: block; margin-top: 2px; }
+        .preview-link:hover { color: #3498db; }
+        .config-section { margin-bottom: 20px; border-left: 5px solid #2c3e50; padding-left: 15px; }
+    </style>
+</head>
+<body>
+<div class="fluig-style-guide">
+    <form name="form" role="form">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <i class="fluigicon fluigicon-picture icon-sm"></i> 
+                    Gerenciador de Banners - Configuração de Slots
+                </h3>
+            </div>
+            <div class="panel-body">
+                
+                <!-- SEÇÃO DE CONFIGURAÇÃO GLOBAL -->
+                <div class="row config-section">
+                    <div class="col-md-3">
+                        <label for="PARENT_ID">ID da Pasta no GED (Destino)</label>
+                        <input type="text" name="PARENT_ID" id="PARENT_ID" class="form-control" value="281659" placeholder="Ex: 281659">
+                    </div>
+                    <div class="col-md-3">
+                     <label for="WIDGET_ID">Identificador no Widget</label>
+                     <input type="text" name="WIDGET_ID" id="WIDGET_ID" class="form-control" placeholder="Ex: banner-home">
+                    </div>
+                    <div class="col-md-9">
+                        <p class="text-muted" style="margin-top: 25px;">
+                            <i class="fluigicon fluigicon-info-sign"></i> 
+                            Informe o ID da pasta onde as imagens serão publicadas.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-slots" id="tabela-slots">
+                        <thead>
+                            <tr class="slot-header">
+                                <th width="5%">Slot</th>
+                                <th width="5%">Ativo</th>
+                                <th width="25%">Upload da Imagem (JPG/PNG)</th>
+                                <th width="10%">Tempo (s)</th>
+                                <th width="15%">Validade</th>
+                                <th width="20%">Link de Destino</th>
+                                <th width="20%">Texto Alternativo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Slot 1 -->
+                            <tr>
+                                <td class="slot-num">1</td>
+                                <td>
+                                    <div class="checkbox-center">
+                                        <input type="checkbox" name="ATIVO_1" id="ATIVO_1" value="Sim" onchange="BannerApp.Events.fnValidateSlot(1)">
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="file" name="FILE_UPLOAD_1" id="FILE_UPLOAD_1" class="form-control" accept="image/png, image/jpeg, image/jpg" onchange="BannerApp.Events.fnOnUploadChange(this, 1)">
+                                    <input type="text" name="URLIMAGEM_1" id="URLIMAGEM_1" class="form-control btn-upload-custom" readonly placeholder="Aguardando upload...">
+                                    <a class="preview-link" onclick="BannerApp.Events.fnOnPreviewClick(1)">Visualizar Mídia</a>
+                                    <input type="hidden" name="DOCID_1" id="DOCID_1">
+                                </td>
+                                <td><input type="number" name="TEMPO_1" id="TEMPO_1" class="form-control" value="5"></td>
+                                <td><input type="date" name="VALIDADE_1" id="VALIDADE_1" class="form-control"></td>
+                                <td><input type="text" name="LINK_1" id="LINK_1" class="form-control" placeholder="https://..." onblur="BannerApp.Events.fnValidateSlot(1)"></td>
+                                <td><input type="text" name="ALT_1" id="ALT_1" class="form-control"></td>
+                            </tr>
+                            <!-- Slot 2 -->
+                            <tr>
+                                <td class="slot-num">2</td>
+                                <td>
+                                    <div class="checkbox-center">
+                                        <input type="checkbox" name="ATIVO_2" id="ATIVO_2" value="Sim" onchange="BannerApp.Events.fnValidateSlot(2)">
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="file" name="FILE_UPLOAD_2" id="FILE_UPLOAD_2" class="form-control" accept="image/png, image/jpeg, image/jpg" onchange="BannerApp.Events.fnOnUploadChange(this, 2)">
+                                    <input type="text" name="URLIMAGEM_2" id="URLIMAGEM_2" class="form-control btn-upload-custom" readonly>
+                                    <a class="preview-link" onclick="BannerApp.Events.fnOnPreviewClick(2)">Visualizar Mídia</a>
+                                    <input type="hidden" name="DOCID_2" id="DOCID_2">
+                                </td>
+                                <td><input type="number" name="TEMPO_2" id="TEMPO_2" class="form-control" value="5"></td>
+                                <td><input type="date" name="VALIDADE_2" id="VALIDADE_2" class="form-control"></td>
+                                <td><input type="text" name="LINK_2" id="LINK_2" class="form-control" onblur="BannerApp.Events.fnValidateSlot(2)"></td>
+                                <td><input type="text" name="ALT_2" id="ALT_2" class="form-control"></td>
+                            </tr>
+                            <!-- Slot 3 -->
+                            <tr>
+                                <td class="slot-num">3</td>
+                                <td>
+                                    <div class="checkbox-center">
+                                        <input type="checkbox" name="ATIVO_3" id="ATIVO_3" value="Sim" onchange="BannerApp.Events.fnValidateSlot(3)">
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="file" name="FILE_UPLOAD_3" id="FILE_UPLOAD_3" class="form-control" accept="image/png, image/jpeg, image/jpg" onchange="BannerApp.Events.fnOnUploadChange(this, 3)">
+                                    <input type="text" name="URLIMAGEM_3" id="URLIMAGEM_3" class="form-control btn-upload-custom" readonly>
+                                    <a class="preview-link" onclick="BannerApp.Events.fnOnPreviewClick(3)">Visualizar Mídia</a>
+                                    <input type="hidden" name="DOCID_3" id="DOCID_3">
+                                </td>
+                                <td><input type="number" name="TEMPO_3" id="TEMPO_3" class="form-control" value="5"></td>
+                                <td><input type="date" name="VALIDADE_3" id="VALIDADE_3" class="form-control"></td>
+                                <td><input type="text" name="LINK_3" id="LINK_3" class="form-control" onblur="BannerApp.Events.fnValidateSlot(3)"></td>
+                                <td><input type="text" name="ALT_3" id="ALT_3" class="form-control"></td>
+                            </tr>
+                            <!-- Slot 4 -->
+                            <tr>
+                                <td class="slot-num">4</td>
+                                <td>
+                                    <div class="checkbox-center">
+                                        <input type="checkbox" name="ATIVO_4" id="ATIVO_4" value="Sim" onchange="BannerApp.Events.fnValidateSlot(4)">
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="file" name="FILE_UPLOAD_4" id="FILE_UPLOAD_4" class="form-control" accept="image/png, image/jpeg, image/jpg" onchange="BannerApp.Events.fnOnUploadChange(this, 4)">
+                                    <input type="text" name="URLIMAGEM_4" id="URLIMAGEM_4" class="form-control btn-upload-custom" readonly>
+                                    <a class="preview-link" onclick="BannerApp.Events.fnOnPreviewClick(4)">Visualizar Mídia</a>
+                                    <input type="hidden" name="DOCID_4" id="DOCID_4">
+                                </td>
+                                <td><input type="number" name="TEMPO_4" id="TEMPO_4" class="form-control" value="5"></td>
+                                <td><input type="date" name="VALIDADE_4" id="VALIDADE_4" class="form-control"></td>
+                                <td><input type="text" name="LINK_4" id="LINK_4" class="form-control" onblur="BannerApp.Events.fnValidateSlot(4)"></td>
+                                <td><input type="text" name="ALT_4" id="ALT_4" class="form-control"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+</body>
+</html>
