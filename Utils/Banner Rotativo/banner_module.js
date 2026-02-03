@@ -38,7 +38,7 @@ var BannerRotator = (function() {
 
                 console.log("Constraints aplicadas:", constraints);
 
-                DatasetFactory.getDataset("ds_frm_banner", null, constraints, null, {
+                DatasetFactory.getDataset("ds_form_config_banner", null, constraints, null, {
                     success: function(dataset) {
                         console.log("--- BANNER DEBUG: SUCESSO NA RESPOSTA ---");
                         console.log("Objeto Dataset retornado:", dataset);
